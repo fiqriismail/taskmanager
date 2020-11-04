@@ -15,12 +15,10 @@ function TaskItem(props) {
         </div>
 
         <p className="card-text">{props.taskInfo.description}</p>
-        <a href="/" className="btn btn-success card-link">
-          Complete
-        </a>
-        <a href="/" className="btn btn-danger card-link">
+        <button className="btn btn-success card-link">Complete</button>
+        <button href="/" className="btn btn-danger card-link">
           Delete
-        </a>
+        </button>
       </div>
     </div>
   );

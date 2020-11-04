@@ -1,60 +1,30 @@
-import React, { useState } from 'react';
-import moment from 'moment';
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 
 import TaskItem from './TaskItem';
 
 function TodoList() {
-  const [tasks, setTasks] = useState([
-    {
-      id: '1',
-      title: 'Task 1',
-      description:
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque pulvinar ornare nisi, in hendrerit tellus ultricies et. ',
-      createdDate: new Date(),
-      dueDate: moment().add(3, 'days').format('DD-MM-yyyy'),
-      status: 'New',
-    },
-    {
-      id: '2',
-      title: 'Task 2',
-      description:
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque pulvinar ornare nisi, in hendrerit tellus ultricies et. ',
-      createdDate: new Date(),
-      dueDate: moment().add(3, 'days').format('DD-MM-yyyy'),
-      status: 'New',
-    },
-    {
-      id: '3',
-      title: 'Task 3',
-      description:
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque pulvinar ornare nisi, in hendrerit tellus ultricies et. ',
-      createdDate: new Date(),
-      dueDate: moment().add(3, 'days').format('DD-MM-yyyy'),
-      status: 'Completed',
-    },
-    {
-      id: '4',
-      title: 'Task 4',
-      description:
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque pulvinar ornare nisi, in hendrerit tellus ultricies et. ',
-      createdDate: new Date(),
-      dueDate: moment().add(3, 'days').format('DD-MM-yyyy'),
-      status: 'Completed',
-    },
-    {
-      id: '5',
-      title: 'Task 5',
-      description:
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque pulvinar ornare nisi, in hendrerit tellus ultricies et. ',
-      createdDate: new Date(),
-      dueDate: moment().add(3, 'days').format('DD-MM-yyyy'),
-      status: 'New',
-    },
-  ]);
+  const [tasks, setTasks] = useState([]);
+
+  useEffect(() => {
+    const apiUrl = 'https://reactapidemo-290306.firebaseio.com/tasks.json';
+
+    axios.get(apiUrl).then((response) => {
+      if (response.data) {
+        setTasks(Object.values(response.data));
+      }
+    });
+  }, []);
 
   const displayTasks = () => {
+    if (tasks.length === 0)
+      return (
+        <div className="spinner-border m-auto" role="status">
+          <span className="sr-only">Loading...</span>
+        </div>
+      );
     return tasks.map((task) => {
-      return <TaskItem key={task.id} taskInfo={task} />;
+      return <TaskItem key={task.task_id} taskInfo={task} />;
     });
   };
 
