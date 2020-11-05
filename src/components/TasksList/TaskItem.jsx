@@ -1,26 +1,25 @@
 import React from 'react';
 
 function TaskItem(props) {
-  const borderColor = props.taskInfo.status === 'New' ? 'border-primary' : '';
+  const borderColor =
+    props.taskInfo.status === 'Completed' ? 'border-success' : '';
   return (
-    <div className={'card m-1 col-3 p-0 border ' + borderColor}>
-      <div className="card-body">
-        <div className="row">
-          <div className="col">
-            <h5 className="card-title">{props.taskInfo.title}</h5>
-          </div>
-          <div className="col text-right">
-            <small>{props.taskInfo.dueDate}</small>
+    <div className="col mb-2">
+      <div className={'card border ' + borderColor}>
+        <div className="card-header">
+          <span className="card-title">{props.taskInfo.title}</span>
+          <br />
+          <span className="badge badge-pill badge-primary">
+            {props.taskInfo.dueDate}
+          </span>
+        </div>
+        <div className="card-body d-flex flex-column">
+          <p className="card-text">{props.taskInfo.description}</p>
+          <div className="mt-auto text-right">
+            <button className="btn btn-danger btn-sm mr-2">Delete</button>
+            <button className="btn btn-success btn-sm ">Complete</button>
           </div>
         </div>
-
-        <p className="card-text">{props.taskInfo.description}</p>
-        <a href="/" className="btn btn-success card-link">
-          Complete
-        </a>
-        <a href="/" className="btn btn-danger card-link">
-          Delete
-        </a>
       </div>
     </div>
   );
