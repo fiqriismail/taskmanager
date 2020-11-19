@@ -27,7 +27,7 @@ function TodoList() {
 
   const handleDelete = (taskid) => {
     const apiUrl = `https://reactapidemo-290306.firebaseio.com/tasks/${taskid}.json`;
-    axios.delete(apiUrl, { status: 'Completed' }).then((response) => {
+    axios.delete(apiUrl).then((response) => {
       if (response.status === 200) {
         setTaskUpdated(!taskUpdated);
       }
